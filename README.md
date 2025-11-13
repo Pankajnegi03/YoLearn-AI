@@ -17,7 +17,7 @@ App.tsx              // entry point
 
 ## Design Highlights
 
-- Gradient-backed layout with reusable `GradientBackground`.
+- Gradient-backed layout with reusable `AppBackground`.
 - Animated, glowing microphone CTA via `MicButton`.
 - Component-driven layout (chips, pills, cards) with `StyleSheet.create` for every style (no inline styles).
 - Axios-powered companion feed with loading/error states (`https://dummyjson.com/users`).

@@ -4,8 +4,8 @@ import { useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 
 import { ActionPill } from '@/components/ActionPill';
+import { AppBackground } from '@/components/AppBackground';
 import { ChatInput } from '@/components/ChatInput';
-import { GradientBackground } from '@/components/GradientBackground';
 import { MessageBubble } from '@/components/MessageBubble';
 import { MicButton } from '@/components/MicButton';
 import { ScreenHeader } from '@/components/ScreenHeader';
@@ -38,7 +38,7 @@ export function ChatScreen({ route }: Props) {
   const styles = createStyles(bottomInset);
 
   return (
-    <GradientBackground>
+    <AppBackground>
       <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
         <ScreenHeader title="YoTutor" />
 
@@ -62,7 +62,7 @@ export function ChatScreen({ route }: Props) {
           <MicButton />
         </View>
       </View>
-    </GradientBackground>
+    </AppBackground>
   );
 }
 

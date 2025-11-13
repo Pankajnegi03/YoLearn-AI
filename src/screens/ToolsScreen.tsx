@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 
-import { GradientBackground } from '@/components/GradientBackground';
+import { AppBackground } from '@/components/AppBackground';
 import { ScreenHeader } from '@/components/ScreenHeader';
 import { SearchBar } from '@/components/SearchBar';
 import { SegmentedTabs } from '@/components/SegmentedTabs';
@@ -33,7 +33,7 @@ export function ToolsScreen() {
   const [activeTab, setActiveTab] = useState(0);
 
   return (
-    <GradientBackground>
+    <AppBackground>
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.content}>
         <ScreenHeader title="Tools" />
         <SearchBar
@@ -51,7 +51,7 @@ export function ToolsScreen() {
           ))}
         </View>
       </ScrollView>
-    </GradientBackground>
+    </AppBackground>
   );
 }
 

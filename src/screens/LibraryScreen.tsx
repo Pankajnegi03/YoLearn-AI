@@ -1,7 +1,7 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { ScrollView, StyleSheet, View } from 'react-native';
 
-import { GradientBackground } from '@/components/GradientBackground';
+import { AppBackground } from '@/components/AppBackground';
 import { IconButton } from '@/components/IconButton';
 import { LibraryItem } from '@/components/LibraryItem';
 import { ScreenHeader } from '@/components/ScreenHeader';
@@ -46,7 +46,7 @@ const TOPICS = [
 
 export function LibraryScreen({ navigation }: Props) {
   return (
-    <GradientBackground>
+    <AppBackground>
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.content}>
         <ScreenHeader
           title="Library"
@@ -72,7 +72,7 @@ export function LibraryScreen({ navigation }: Props) {
           />
         ))}
       </ScrollView>
-    </GradientBackground>
+    </AppBackground>
   );
 }
 

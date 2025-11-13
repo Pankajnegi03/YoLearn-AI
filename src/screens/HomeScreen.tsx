@@ -2,13 +2,22 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useState } from "react";
-import { FlatList, ScrollView, StyleSheet, Text, View } from "react-native";
+import {
+    FlatList,
+    Image,
+    Pressable,
+    ScrollView,
+    StyleSheet,
+    Text,
+    View,
+} from "react-native";
 
+import { AppBackground } from "@/components/AppBackground";
 import { CategoryChip } from "@/components/CategoryChip";
-import { MicButton } from "@/components/MicButton";
 import { SearchBar } from "@/components/SearchBar";
 import { HomeStackParamList } from "@/navigation/types";
 import { Colors, spacing } from "@/theme";
+import Voice from "../../assets/images/voice-background.png";
 
 const SEARCH_RESULTS = [
   {
@@ -57,94 +66,101 @@ export function HomeScreen() {
   const [selectedCategory, setSelectedCategory] = useState(CATEGORIES[0]);
 
   return (
-    <ScrollView
-      showsVerticalScrollIndicator={false}
-      contentContainerStyle={styles.scrollContent}
-      style={{ paddingHorizontal: 26, paddingVertical: 70 }}
-      nestedScrollEnabled={true}
-    >
-      <View style={styles.headerRow}>
-        <View style={styles.roundButton}>
-          <MaterialIcons
-            name="menu-book"
-            size={20}
-            color={Colors.textPrimary}
-          />
-        </View>
-        <View style={styles.voiceBadge}>
-          <MaterialIcons
-            name="graphic-eq"
-            size={18}
-            color={Colors.textPrimary}
-          />
-          <Text style={styles.voiceLabel}>Voice</Text>
-        </View>
-        <View style={styles.roundButton}>
-          <MaterialIcons name="menu" size={20} color={Colors.textPrimary} />
-        </View>
-      </View>
-
-      <View style={styles.micSection}>
-        <MicButton
-          size={200}
-          onPress={() =>
-            navigation.navigate("Chat", { topic: "How can you help me?" })
-          }
-        />
-        <Text style={styles.brandLabel}>Yo</Text>
-      </View>
-
-      <View style={styles.welcomeCard}>
-        <Text style={styles.welcomeMessage}>
-          Welcome, Sarthak! What would you like to learn today?
-        </Text>
-        <View style={{ flexDirection: "row", alignItems: "center", gap: 7 }}>
-          <SearchBar
-            placeholder="I would like to learn about..."
-            value={query}
-            onChangeText={setQuery}
-          />
-          <View
-            style={{
-              height: 35,
-              width: 35,
-              backgroundColor: "#D9D9D9",
-              justifyContent: "center",
-              alignItems: "center",
-              borderRadius: 100,
-            }}
-          >
-            <MaterialIcons name="attach-file" size={22} color={"#000000"} />
+    <AppBackground>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={styles.scrollContent}
+      >
+        <View style={styles.headerRow}>
+          <View style={styles.roundButton}>
+            <MaterialIcons
+              name="menu-book"
+              size={20}
+              color={Colors.textPrimary}
+            />
+          </View>
+          <View style={styles.voiceBadge}>
+            <MaterialIcons
+              name="graphic-eq"
+              size={18}
+              color={Colors.textPrimary}
+            />
+            <Text style={styles.voiceLabel}>Voice</Text>
+          </View>
+          <View style={styles.roundButton}>
+            <MaterialIcons name="menu" size={20} color={Colors.textPrimary} />
           </View>
         </View>
-      </View>
-      <View style={styles.chipsRow}>
-        {CATEGORIES.map((category) => (
-          <CategoryChip
-            key={category}
-            label={category}
-            active={category === selectedCategory}
-            onPress={() => setSelectedCategory(category)}
-          />
-        ))}
-      </View>
 
-      <View style={styles.suggestionsCard}>
-        <FlatList
-          data={SEARCH_RESULTS}
-          keyExtractor={(item) => item.id.toString()}
-          nestedScrollEnabled={true}
-          showsVerticalScrollIndicator={true}
-          style={{ maxHeight: 152 }}
-          renderItem={({ item }) => (
-            <View style={styles.suggestionRow}>
-              <MaterialIcons name="search" size={16} color={"#B7B7B7"} />
-              <Text style={styles.suggestionTitle}>{item.title}</Text>
+        <View style={styles.micSection}>
+          <Pressable
+            onPress={() =>
+              navigation.navigate("Chat", { topic: "How can you help me?" })
+            }
+          >
+            <Image
+              source={Voice}
+              style={{
+                height: 250,
+                width: 250,
+              }}
+            />
+          </Pressable>
+          <Text style={styles.brandLabel}>Yo</Text>
+        </View>
+
+        <View style={styles.welcomeCard}>
+          <Text style={styles.welcomeMessage}>
+            Welcome, Sarthak! What would you like to learn today?
+          </Text>
+          <View style={{ flexDirection: "row", alignItems: "center", gap: 7 }}>
+            <SearchBar
+              placeholder="I would like to learn about..."
+              value={query}
+              onChangeText={setQuery}
+            />
+            <View
+              style={{
+                height: 35,
+                width: 35,
+                backgroundColor: "#D9D9D9",
+                justifyContent: "center",
+                alignItems: "center",
+                borderRadius: 100,
+              }}
+            >
+              <MaterialIcons name="attach-file" size={22} color={"#000000"} />
             </View>
-          )}
-        />
-      </View>
-    </ScrollView>
+          </View>
+        </View>
+        <View style={styles.chipsRow}>
+          {CATEGORIES.map((category) => (
+            <CategoryChip
+              key={category}
+              label={category}
+              active={category === selectedCategory}
+              onPress={() => setSelectedCategory(category)}
+            />
+          ))}
+        </View>
+
+        <View style={styles.suggestionsCard}>
+          <FlatList
+            data={SEARCH_RESULTS}
+            keyExtractor={(item) => item.id.toString()}
+            nestedScrollEnabled={true}
+            showsVerticalScrollIndicator={true}
+            style={{ maxHeight: 152 }}
+            renderItem={({ item }) => (
+              <View style={styles.suggestionRow}>
+                <MaterialIcons name="search" size={16} color={"#B7B7B7"} />
+                <Text style={styles.suggestionTitle}>{item.title}</Text>
+              </View>
+            )}
+          />
+        </View>
+      </ScrollView>
+    </AppBackground>
   );
 }
 
@@ -191,10 +207,9 @@ const styles = StyleSheet.create({
   },
   brandLabel: {
     color: Colors.textPrimary,
-    marginTop: spacing.md,
     fontSize: 16,
     letterSpacing: 2,
-    textTransform: "uppercase",
+    textAlign: "center",
   },
   welcomeCard: {
     backgroundColor: Colors.surfaceGlass,

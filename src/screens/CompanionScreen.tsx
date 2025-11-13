@@ -4,9 +4,9 @@ import { ActivityIndicator, Image, ScrollView, StyleSheet, Text, View } from 're
 
 import { Companion, fetchCompanions } from '@/api/companions';
 import { ActionPill } from '@/components/ActionPill';
+import { AppBackground } from '@/components/AppBackground';
 import { CategoryChip } from '@/components/CategoryChip';
 import { ChatInput } from '@/components/ChatInput';
-import { GradientBackground } from '@/components/GradientBackground';
 import { ScreenHeader } from '@/components/ScreenHeader';
 import { SearchBar } from '@/components/SearchBar';
 import { SectionHeading } from '@/components/SectionHeading';
@@ -53,7 +53,7 @@ export function CompanionScreen({ route, navigation }: Props) {
   }, [companions, companionId]);
 
   return (
-    <GradientBackground>
+    <AppBackground>
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.content}>
         <ScreenHeader
           title={route.params.name}
@@ -120,7 +120,7 @@ export function CompanionScreen({ route, navigation }: Props) {
           <ChatInput value={search} onChangeText={setSearch} placeholder="I would like to learn about..." />
         </View>
       </ScrollView>
-    </GradientBackground>
+    </AppBackground>
   );
 }
 
