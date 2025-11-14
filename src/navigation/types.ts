@@ -1,10 +1,6 @@
 export type HomeStackParamList = {
   Home: undefined;
   Companion: undefined;
-  Chat: {
-    topic: string;
-  };
-  Library: undefined;
 };
 
 export type ToolsStackParamList = {
@@ -16,3 +12,10 @@ export type RootTabParamList = {
   Tools: undefined;
 };
 
+export type RootStackParamList = {
+  MainTabs: undefined;
+  Chat: {
+    topic: string;
+  };
+  Library: undefined;
+};

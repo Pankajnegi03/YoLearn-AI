@@ -4,14 +4,12 @@ type CategoryChipProps = {
   label: string;
   active?: boolean;
   onPress?: () => void;
-  preset:string
 };
 
 export function CategoryChip({
   label,
   active = false,
   onPress,
-  preset="chip"
 }: CategoryChipProps) {
   return (
     <Pressable

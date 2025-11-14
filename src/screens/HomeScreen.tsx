@@ -3,13 +3,13 @@ import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useState } from "react";
 import {
-    FlatList,
-    Image,
-    Pressable,
-    ScrollView,
-    StyleSheet,
-    Text,
-    View,
+  FlatList,
+  Image,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
 } from "react-native";
 
 import { AppBackground } from "@/components/AppBackground";
@@ -74,7 +74,12 @@ export function HomeScreen() {
         <View style={styles.headerRow}>
           <Pressable
             style={styles.roundButton}
-            onPress={() => navigation.navigate("Library")}
+            onPress={() => {
+              const rootNavigation = navigation.getParent()?.getParent();
+              if (rootNavigation) {
+                rootNavigation.navigate("Library");
+              }
+            }}
           >
             <MaterialIcons
               name="menu-book"
@@ -97,9 +102,14 @@ export function HomeScreen() {
 
         <View style={styles.micSection}>
           <Pressable
-            onPress={() =>
-              navigation.navigate("Chat", { topic: "How can you help me?" })
-            }
+            onPress={() => {
+              const rootNavigation = navigation.getParent()?.getParent();
+              if (rootNavigation) {
+                rootNavigation.navigate("Chat", {
+                  topic: "How can you help me?",
+                });
+              }
+            }}
           >
             <Image
               source={Voice}

@@ -29,7 +29,12 @@ export function CompanionScreen({
           <View style={styles.headerColumn}>
             <Pressable
               style={styles.circleButton}
-              onPress={() => navigation.navigate("Library")}
+              onPress={() => {
+                const rootNavigation = navigation.getParent()?.getParent();
+                if (rootNavigation) {
+                  rootNavigation.navigate("Library");
+                }
+              }}
             >
               <MaterialIcons
                 name="menu-book"

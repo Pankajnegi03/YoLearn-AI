@@ -5,10 +5,10 @@ import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 
 import { AppBackground } from "@/components/AppBackground";
 import { LibraryItem } from "@/components/LibraryItem";
-import { HomeStackParamList } from "@/navigation/types";
+import { RootStackParamList } from "@/navigation/types";
 import { Colors, spacing } from "@/theme";
 
-type Props = NativeStackScreenProps<HomeStackParamList, "Library">;
+type Props = NativeStackScreenProps<RootStackParamList, "Library">;
 
 const TOPICS = [
   {
@@ -73,7 +73,10 @@ export function LibraryScreen({ navigation }: Props) {
         </Pressable>
 
         <View style={styles.headerIcons}>
-          <Pressable style={styles.iconButton}>
+          <Pressable
+            style={styles.iconButton}
+            onPress={() => navigation.goBack()}
+          >
             <MaterialIcons name="close" size={20} color={Colors.textPrimary} />
           </Pressable>
           <Pressable style={styles.iconButton}>
