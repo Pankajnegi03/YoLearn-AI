@@ -72,13 +72,16 @@ export function HomeScreen() {
         contentContainerStyle={styles.scrollContent}
       >
         <View style={styles.headerRow}>
-          <View style={styles.roundButton}>
+          <Pressable
+            style={styles.roundButton}
+            onPress={() => navigation.navigate("Library")}
+          >
             <MaterialIcons
               name="menu-book"
               size={20}
               color={Colors.textPrimary}
             />
-          </View>
+          </Pressable>
           <View style={styles.voiceBadge}>
             <MaterialIcons
               name="graphic-eq"

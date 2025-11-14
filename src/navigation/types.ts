@@ -1,11 +1,6 @@
 export type HomeStackParamList = {
   Home: undefined;
-  Companion: {
-    companionId: number;
-    name: string;
-    avatar: string;
-    specialization: string;
-  };
+  Companion: undefined;
   Chat: {
     topic: string;
   };

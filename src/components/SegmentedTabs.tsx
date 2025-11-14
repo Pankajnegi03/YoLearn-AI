@@ -1,6 +1,6 @@
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Pressable, StyleSheet, Text, View } from "react-native";
 
-import { Colors, spacing } from '@/theme';
+import { Colors, spacing } from "@/theme";
 
 type SegmentedTabsProps = {
   tabs: string[];
@@ -8,7 +8,11 @@ type SegmentedTabsProps = {
   onChange: (index: number) => void;
 };
 
-export function SegmentedTabs({ tabs, activeIndex, onChange }: SegmentedTabsProps) {
+export function SegmentedTabs({
+  tabs,
+  activeIndex,
+  onChange,
+}: SegmentedTabsProps) {
   return (
     <View style={styles.container}>
       {tabs.map((tab, index) => {
@@ -16,9 +20,15 @@ export function SegmentedTabs({ tabs, activeIndex, onChange }: SegmentedTabsProp
         return (
           <Pressable
             key={tab}
-            style={[styles.tab, isActive ? styles.activeTab : styles.inactiveTab]}
-            onPress={() => onChange(index)}>
-            <Text style={isActive ? styles.activeLabel : styles.inactiveLabel}>{tab}</Text>
+            style={[
+              styles.tab,
+              isActive ? styles.activeTab : styles.inactiveTab,
+            ]}
+            onPress={() => onChange(index)}
+          >
+            <Text style={isActive ? styles.activeLabel : styles.inactiveLabel}>
+              {tab}
+            </Text>
           </Pressable>
         );
       })}
@@ -28,32 +38,30 @@ export function SegmentedTabs({ tabs, activeIndex, onChange }: SegmentedTabsProp
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
-    backgroundColor: Colors.surface,
-    borderRadius: 24,
-    padding: spacing.xs,
-    borderWidth: 1,
-    borderColor: Colors.outline,
+    flexDirection: "row",
   },
   tab: {
     flex: 1,
     paddingVertical: spacing.sm,
-    borderRadius: 20,
-    alignItems: 'center',
+    alignItems: "center",
   },
   activeTab: {
-    backgroundColor: Colors.accent,
+    borderBottomWidth: 1,
+    borderBottomColor: "#03c1c0",
   },
   inactiveTab: {
-    backgroundColor: 'transparent',
+    backgroundColor: "transparent",
   },
   activeLabel: {
-    color: Colors.background,
-    fontWeight: '600',
+    color: "#ffff",
+    fontWeight: "500",
+    fontSize: 12,
+    lineHeight: 16,
   },
   inactiveLabel: {
-    color: Colors.textSecondary,
-    fontWeight: '500',
+    color: "#b7b7b7",
+    fontWeight: "500",
+    fontSize: 12,
+    lineHeight: 16,
   },
 });
-

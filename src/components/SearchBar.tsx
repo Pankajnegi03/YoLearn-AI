@@ -1,8 +1,4 @@
-import { MaterialIcons } from "@expo/vector-icons";
-import { ReactNode } from "react";
 import { StyleSheet, TextInput, View } from "react-native";
-
-import { Colors, spacing } from "@/theme";
 
 type SearchBarProps = {
   placeholder: string;
@@ -30,16 +26,19 @@ export function SearchBar({
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 15,
-    borderRadius: 24,
+    paddingHorizontal: 16,
+    borderRadius: 26,
     backgroundColor: "#69696999",
     borderWidth: 1,
     borderColor: "#4CCFD7",
-    flex:1
+    flex: 1,
+    minHeight: 44,
+    justifyContent: "center",
   },
   input: {
     flex: 1,
     color: "#B7B7B7",
     fontSize: 15,
+    paddingVertical: 0,
   },
 });

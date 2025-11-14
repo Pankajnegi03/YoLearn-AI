@@ -1,53 +1,63 @@
-import { useState } from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { useState } from "react";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 
-import { AppBackground } from '@/components/AppBackground';
-import { ScreenHeader } from '@/components/ScreenHeader';
-import { SearchBar } from '@/components/SearchBar';
-import { SegmentedTabs } from '@/components/SegmentedTabs';
-import { ToolCard } from '@/components/ToolCard';
-import { spacing } from '@/theme';
+import { AppBackground } from "@/components/AppBackground";
+import { ScreenHeader } from "@/components/ScreenHeader";
+import { SearchBar } from "@/components/SearchBar";
+import { SegmentedTabs } from "@/components/SegmentedTabs";
+import { ToolCard } from "@/components/ToolCard";
+import { Colors, spacing, typography } from "@/theme";
 
-const TOOL_CATEGORIES = ['Plan', 'Learn', 'Practise', 'Revise', 'Analyze'];
+const TOOL_CATEGORIES = ["Plan", "Learn", "Practise", "Revise", "Analyze"];
 
 const TOOL_ITEMS = [
   {
-    id: 'learn-topic',
-    title: 'Learn Topic',
-    subtitle: 'Deep dive into specific learning topics',
+    id: "learn-topic",
+    title: "Learn Topic",
+    subtitle: "Deep dive into specific learning topics",
   },
   {
-    id: 'concept-map',
-    title: 'Concept Map Generator',
-    subtitle: 'Create dynamic educational diagrams & concept maps',
+    id: "concept-map",
+    title: "Concept Map Generator",
+    subtitle: "Create dynamic educational diagrams & concept maps",
   },
   {
-    id: 'quiz',
-    title: 'Quiz Builder',
-    subtitle: 'Generate quick assessments to evaluate understanding',
+    id: "quiz",
+    title: "Quiz Builder",
+    subtitle: "Generate quick assessments to evaluate understanding",
   },
 ];
 
 export function ToolsScreen() {
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
   const [activeTab, setActiveTab] = useState(0);
 
   return (
     <AppBackground>
-      <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.content}>
-        <ScreenHeader title="Tools" />
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={styles.content}
+      >
+        <Text style={styles.title}>Tools</Text>
         <SearchBar
           placeholder="Search companions by name"
           value={search}
           onChangeText={setSearch}
-          accessory={null}
         />
         <View style={styles.tabsContainer}>
-          <SegmentedTabs tabs={TOOL_CATEGORIES} activeIndex={activeTab} onChange={setActiveTab} />
+          <SegmentedTabs
+            tabs={TOOL_CATEGORIES}
+            activeIndex={activeTab}
+            onChange={setActiveTab}
+          />
         </View>
         <View style={styles.cardsContainer}>
           {TOOL_ITEMS.map((tool) => (
-            <ToolCard key={tool.id} title={tool.title} subtitle={tool.subtitle} />
+            <ToolCard
+              key={tool.id}
+              title={tool.title}
+              subtitle={tool.subtitle}
+            />
           ))}
         </View>
       </ScrollView>
@@ -59,12 +69,16 @@ const styles = StyleSheet.create({
   content: {
     paddingBottom: spacing.xxl * 2,
   },
+  title: {
+    ...typography.title,
+    color: Colors.textPrimary,
+    flex: 1,
+  },
   tabsContainer: {
-    marginTop: spacing.xl,
-    marginBottom: spacing.xl,
+    marginTop: 8,
+    marginBottom: 24,
   },
   cardsContainer: {
-    gap: spacing.md,
+    gap: 12,
   },
 });
-

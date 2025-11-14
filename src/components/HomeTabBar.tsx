@@ -5,6 +5,7 @@ import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 
 import { Colors, Gradients, spacing } from "@/theme";
 
+import ProfileImage from "../../assets/images/profile.png";
 import RulerPenIcon from "../../assets/images/ruler-pen.png";
 
 // ICON MAPS
@@ -22,91 +23,114 @@ export function HomeTabBar({
   navigation,
 }: BottomTabBarProps) {
   return (
-    <View style={styles.container}>
-      <LinearGradient
-        colors={Gradients.tabBar}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 1 }}
-        style={styles.background}
-      >
-        {state.routes.map((route, index) => {
-          const { options } = descriptors[route.key];
-          const rawLabel = options.tabBarLabel ?? options.title ?? route.name;
-          const label =
-            typeof rawLabel === "string" ? rawLabel : (route.name as string);
-          const isFocused = state.index === index;
+    <View pointerEvents="box-none" style={styles.wrapper}>
+      <View style={styles.container}>
+        <LinearGradient
+          colors={Gradients.tabBar}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 1 }}
+          style={styles.background}
+        >
+          {state.routes.map((route, index) => {
+            const { options } = descriptors[route.key];
+            const rawLabel = options.tabBarLabel ?? options.title ?? route.name;
+            const label =
+              typeof rawLabel === "string" ? rawLabel : (route.name as string);
+            const isFocused = state.index === index;
 
-          const onPress = () => {
-            const event = navigation.emit({
-              type: "tabPress",
-              target: route.key,
-              canPreventDefault: true,
-            });
+            const onPress = () => {
+              const event = navigation.emit({
+                type: "tabPress",
+                target: route.key,
+                canPreventDefault: true,
+              });
 
-            if (!isFocused && !event.defaultPrevented) {
-              navigation.navigate(route.name);
-            }
-          };
+              if (!isFocused && !event.defaultPrevented) {
+                navigation.navigate(route.name);
+              }
+            };
 
-          const materialIconName = MATERIAL_ICONS[route.name];
-          const customIcon = CUSTOM_ICONS[route.name];
+            const materialIconName = MATERIAL_ICONS[route.name];
+            const customIcon = CUSTOM_ICONS[route.name];
 
-          return (
-            <Pressable
-              key={route.key}
-              onPress={onPress}
-              style={[
-                styles.tabButton,
-                isFocused ? styles.tabButtonActive : null,
-              ]}
-            >
-              <View style={[styles.pill, isFocused ? styles.pillActive : null]}>
-                {materialIconName && (
-                  <MaterialIcons
-                    name={materialIconName}
-                    size={22}
-                    color={Colors.textSecondary}
-                  />
-                )}
-
-                {customIcon && (
-                  <Image
-                    source={customIcon}
-                    style={{
-                      width: 22,
-                      height: 22,
-                      tintColor: Colors.textSecondary,
-                      resizeMode: "contain",
-                    }}
-                  />
-                )}
-
-                <Text
-                  style={[styles.label, isFocused ? styles.labelActive : null]}
+            return (
+              <Pressable
+                key={route.key}
+                onPress={onPress}
+                style={[
+                  styles.tabButton,
+                  isFocused ? styles.tabButtonActive : null,
+                ]}
+              >
+                <View
+                  style={[styles.pill, isFocused ? styles.pillActive : null]}
                 >
-                  {label}
-                </Text>
-              </View>
-            </Pressable>
-          );
-        })}
-      </LinearGradient>
+                  {materialIconName && (
+                    <MaterialIcons
+                      name={materialIconName}
+                      size={22}
+                      color={Colors.textSecondary}
+                    />
+                  )}
+
+                  {customIcon && (
+                    <Image
+                      source={customIcon}
+                      style={{
+                        width: 22,
+                        height: 22,
+                        tintColor: Colors.textSecondary,
+                        resizeMode: "contain",
+                      }}
+                    />
+                  )}
+
+                  <Text
+                    style={[
+                      styles.label,
+                      isFocused ? styles.labelActive : null,
+                    ]}
+                  >
+                    {label}
+                  </Text>
+                </View>
+              </Pressable>
+            );
+          })}
+        </LinearGradient>
+      </View>
+      <Pressable
+        onPress={() => {
+          navigation.navigate("YoLearn", {
+            screen: "Companion",
+          });
+        }}
+      >
+        <Image source={ProfileImage} style={styles.profile} />
+      </Pressable>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  wrapper: {
     position: "absolute",
-    left: 26,
-    bottom: 32,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    paddingHorizontal: 24,
+    paddingBottom: 32,
+  },
+  container: {
     width: 204,
+    alignSelf: "flex-start",
     borderRadius: 36,
     shadowColor: "#000",
     shadowOpacity: 0.35,
     shadowRadius: 20,
     shadowOffset: { width: 0, height: 12 },
     elevation: 20,
+    backgroundColor: "#0a2120",
   },
   background: {
     flexDirection: "row",
@@ -122,7 +146,7 @@ const styles = StyleSheet.create({
     padding: 2,
   },
   tabButtonActive: {
-    backgroundColor: "#00000099",
+    backgroundColor: "#0b1111",
     borderRadius: 24,
   },
   pill: {
@@ -141,5 +165,12 @@ const styles = StyleSheet.create({
   },
   labelActive: {
     color: Colors.textSecondary,
+  },
+  profile: {
+    position: "absolute",
+    right: 0,
+    bottom: 0,
+    width: 60,
+    height: 60,
   },
 });
