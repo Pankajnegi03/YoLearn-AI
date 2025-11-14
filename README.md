@@ -49,7 +49,6 @@ npx expo start
 
 Then:
 
-- Press `i` to launch the iOS simulator.
 - Press `a` for an Android emulator.
 - Scan the QR code with Expo Go for on-device testing.
 
@@ -63,34 +62,3 @@ npx expo run:android --variant release
 
 The signed APK/AAB will be generated inside `android/app/build/outputs/`.
 
-### iOS (.ipa via EAS)
-
-```bash
-npx eas build --platform ios
-```
-
-Follow the CLI prompts to create an Expo Application Services build. Supply the resulting link as part of your delivery.
-
-> 💡 Sign in with an Expo account before running `eas build`. For ad-hoc or simulator builds, append `--profile preview`.
-
-## Testing Checklist
-
-- [ ] Home screen renders glowing mic, welcome message, chips, and suggestion cards.
-- [ ] Companion screen loads remote companions (observe loading and error states).
-- [ ] Chat screen shows static conversation, action pills, and mic CTA.
-- [ ] Library screen lists mock lessons with action buttons.
-- [ ] Tools screen renders tabs and static tool cards.
-
-## Troubleshooting
-
-- Delete the Metro cache if hot reload behaves oddly:
-
-  ```bash
-  npx expo start -c
-  ```
-
-- For API failures (network offline), the Companion screen will fallback to an inline error message. Retry once connectivity is restored.
-
-## License
-
-Prototype project supplied for the YoLearn assignment; no external distribution intended.

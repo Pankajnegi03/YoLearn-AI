@@ -2,7 +2,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import Book from "../../assets/images/book.png";
 
-import { Colors, spacing } from "@/theme";
+import { Colors } from "@/theme";
 
 type ToolCardProps = {
   title: string;

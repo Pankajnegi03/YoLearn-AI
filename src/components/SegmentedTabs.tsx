@@ -1,6 +1,5 @@
+import { spacing } from "@/theme";
 import { Pressable, StyleSheet, Text, View } from "react-native";
-
-import { Colors, spacing } from "@/theme";
 
 type SegmentedTabsProps = {
   tabs: string[];
