@@ -18,40 +18,22 @@ export function ChatHeader({ onClose }: ChatHeaderProps) {
           name="close"
           size={24}
           color={Colors.textPrimary}
-          style={{ padding: 10 }}
+          style={styles.closeIcon}
         />
       </Pressable>
       <View style={styles.subContainer}>
         <View style={[styles.roundButton, styles.secondaryRoundButton]}>
-          <Image
-            source={ShareIcon}
-            style={{
-              height: 20,
-              width: 20,
-            }}
-          />
+          <Image source={ShareIcon} style={styles.shareIcon} />
         </View>
         <View style={styles.voiceBadge}>
           <Text style={styles.voiceLabel}>YoTutor</Text>
         </View>
         <View style={[styles.roundButton, styles.secondaryRoundButton]}>
-          <Image
-            source={TextIcon}
-            style={{
-              height: 18,
-              width: 18,
-            }}
-          />
+          <Image source={TextIcon} style={styles.textIcon} />
         </View>
       </View>
       <View style={styles.roundButton}>
-        <Image
-          source={Hamburger}
-          style={{
-            height: 13,
-            width: 24,
-          }}
-        />
+        <Image source={Hamburger} style={styles.hamburgerImage} />
       </View>
     </View>
   );
@@ -98,5 +80,20 @@ const styles = StyleSheet.create({
     fontWeight: "400",
     fontSize: 14,
     lineHeight: 18,
+  },
+  closeIcon: {
+    padding: 10,
+  },
+  shareIcon: {
+    height: 20,
+    width: 20,
+  },
+  textIcon: {
+    height: 18,
+    width: 18,
+  },
+  hamburgerImage: {
+    height: 13,
+    width: 24,
   },
 });

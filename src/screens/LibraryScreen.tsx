@@ -1,12 +1,20 @@
 import { MaterialIcons } from "@expo/vector-icons";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { useState } from "react";
-import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+import {
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
 import { AppBackground } from "@/components/AppBackground";
 import { LibraryItem } from "@/components/LibraryItem";
 import { RootStackParamList } from "@/navigation/types";
-import { Colors, spacing } from "@/theme";
+import { Colors } from "@/theme";
+import Hamburger from "../../assets/images/Hamburger.png";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Library">;
 
@@ -67,48 +75,45 @@ export function LibraryScreen({ navigation }: Props) {
   return (
     <AppBackground>
       <View style={styles.header}>
-        <Pressable style={styles.libraryButton}>
-          <MaterialIcons name="menu-book" size={18} color={Colors.textPrimary} />
-          <Text style={styles.libraryButtonText}>Library</Text>
-        </Pressable>
-
+        <TouchableOpacity style={styles.button}>
+          <MaterialIcons
+            name="menu-book"
+            size={18}
+            color={Colors.textPrimary}
+          />
+          <Text style={styles.buttonTitle}>Library</Text>
+        </TouchableOpacity>
         <View style={styles.headerIcons}>
-          <Pressable
+          <TouchableOpacity
             style={styles.iconButton}
             onPress={() => navigation.goBack()}
           >
-            <MaterialIcons name="close" size={20} color={Colors.textPrimary} />
-          </Pressable>
-          <Pressable style={styles.iconButton}>
-            <MaterialIcons name="menu" size={20} color={Colors.textPrimary} />
-          </Pressable>
+            <MaterialIcons name="close" size={32} color={Colors.textPrimary} />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.iconButton}>
+            <Image source={Hamburger} style={styles.hamburgerImage} />
+          </TouchableOpacity>
         </View>
 
-        <Pressable style={styles.notesButton}>
-          <Text style={styles.notesButtonText}>Notes</Text>
-        </Pressable>
+        <TouchableOpacity style={styles.button}>
+          <Text style={styles.secondaryButtonTitle}>Notes</Text>
+        </TouchableOpacity>
       </View>
 
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.content}
       >
-        {TOPICS.map((topic) => (
+        {TOPICS.map((topic, index) => (
           <LibraryItem
             key={topic.id}
             title={topic.title}
             mentor={topic.mentor}
             date={topic.date}
             isExpanded={expandedId === topic.id}
+            isLast={index === TOPICS.length - 1}
             onPress={() =>
               setExpandedId(expandedId === topic.id ? null : topic.id)
-            }
-            onView={() => navigation.navigate("Chat", { topic: topic.title })}
-            onNotes={() =>
-              navigation.navigate("Chat", { topic: `Notes for ${topic.title}` })
-            }
-            onRecap={() =>
-              navigation.navigate("Chat", { topic: `Recap ${topic.title}` })
             }
           />
         ))}
@@ -121,54 +126,50 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-between",
-    paddingHorizontal: spacing.lg,
-    paddingTop: spacing.xl,
-    paddingBottom: spacing.md,
   },
-  libraryButton: {
+  button: {
     flexDirection: "row",
     alignItems: "center",
-    gap: spacing.xs,
-    paddingVertical: spacing.sm,
-    paddingHorizontal: spacing.lg,
+    gap: 6,
+    padding: 10,
     borderRadius: 24,
-    backgroundColor: Colors.surfaceSecondary,
+    backgroundColor: "#082424",
     borderWidth: 1,
     borderColor: Colors.outline,
+    minHeight: 45,
   },
-  libraryButtonText: {
+  buttonTitle: {
     color: Colors.textPrimary,
-    fontSize: 15,
-    fontWeight: "600",
+    fontSize: 20,
+    fontWeight: "500",
+    lineHeight: 22,
+  },
+  secondaryButtonTitle: {
+    color: Colors.textPrimary,
+    fontSize: 17,
+    fontWeight: "500",
+    lineHeight: 22,
   },
   headerIcons: {
+    flex: 1,
     flexDirection: "row",
-    gap: spacing.md,
+    justifyContent: "space-between",
+    marginHorizontal: 10,
   },
   iconButton: {
-    width: 36,
-    height: 36,
-    borderRadius: 18,
+    width: 45,
+    height: 45,
+    borderRadius: 22,
     alignItems: "center",
     justifyContent: "center",
-  },
-  notesButton: {
-    paddingVertical: spacing.sm,
-    paddingHorizontal: spacing.lg,
-    borderRadius: 24,
-    backgroundColor: Colors.surfaceSecondary,
-    borderWidth: 1,
-    borderColor: Colors.outline,
-  },
-  notesButtonText: {
-    color: Colors.textPrimary,
-    fontSize: 15,
-    fontWeight: "600",
+    backgroundColor: "#0a2726",
   },
   content: {
-    paddingHorizontal: spacing.lg,
-    paddingBottom: spacing.xxl * 2,
+    paddingTop: 20,
+    paddingBottom: 20,
+  },
+  hamburgerImage: {
+    height: 13,
+    width: 24,
   },
 });
-

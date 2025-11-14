@@ -1,14 +1,12 @@
 import { MaterialIcons } from "@expo/vector-icons";
 import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
-import { LinearGradient } from "expo-linear-gradient";
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 
-import { Colors, Gradients, spacing } from "@/theme";
+import { Colors, spacing } from "@/theme";
 
 import ProfileImage from "../../assets/images/profile.png";
 import RulerPenIcon from "../../assets/images/ruler-pen.png";
 
-// ICON MAPS
 const MATERIAL_ICONS: Record<string, keyof typeof MaterialIcons.glyphMap> = {
   YoLearn: "graphic-eq",
 };
@@ -25,12 +23,7 @@ export function HomeTabBar({
   return (
     <View pointerEvents="box-none" style={styles.wrapper}>
       <View style={styles.container}>
-        <LinearGradient
-          colors={Gradients.tabBar}
-          start={{ x: 0, y: 0 }}
-          end={{ x: 1, y: 1 }}
-          style={styles.background}
-        >
+        <View style={styles.background}>
           {state.routes.map((route, index) => {
             const { options } = descriptors[route.key];
             const rawLabel = options.tabBarLabel ?? options.title ?? route.name;
@@ -76,12 +69,10 @@ export function HomeTabBar({
                   {customIcon && (
                     <Image
                       source={customIcon}
-                      style={{
-                        width: 22,
-                        height: 22,
-                        tintColor: Colors.textSecondary,
-                        resizeMode: "contain",
-                      }}
+                      style={[
+                        styles.customIcon,
+                        { tintColor: Colors.textSecondary },
+                      ]}
                     />
                   )}
 
@@ -97,7 +88,7 @@ export function HomeTabBar({
               </Pressable>
             );
           })}
-        </LinearGradient>
+        </View>
       </View>
       <Pressable
         onPress={() => {
@@ -172,5 +163,10 @@ const styles = StyleSheet.create({
     bottom: 0,
     width: 60,
     height: 60,
+  },
+  customIcon: {
+    width: 22,
+    height: 22,
+    resizeMode: "contain",
   },
 });

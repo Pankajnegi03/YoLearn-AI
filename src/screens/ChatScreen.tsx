@@ -1,4 +1,3 @@
-import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import {
   Image,
@@ -14,7 +13,6 @@ import { ChatChip } from "@/components/ChatChip";
 import { ChatHeader } from "@/components/ChatHeader";
 import { SearchBar } from "@/components/SearchBar";
 import { RootStackParamList } from "@/navigation/types";
-import { Colors, spacing } from "@/theme";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useState } from "react";
 import Copy from "../../assets/images/Copy.png";
@@ -23,10 +21,8 @@ import Share from "../../assets/images/Share.png";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Chat">;
 
-export function ChatScreen({ route, navigation }: Props) {
+export function ChatScreen({ navigation }: Props) {
   const [query, setQuery] = useState("");
-  // const bottomInset = useBottomTabBarHeight();
-  // const styles = createStyles(bottomInset);
 
   return (
     <AppBackground>
@@ -55,33 +51,15 @@ export function ChatScreen({ route, navigation }: Props) {
 
           <View style={styles.iconContainer}>
             <TouchableOpacity style={styles.iconButton}>
-              <Image
-                source={Copy}
-                style={{
-                  height: 16,
-                  width: 16,
-                }}
-              />
+              <Image source={Copy} style={styles.iconImage} />
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.iconButton}>
-              <Image
-                source={Share}
-                style={{
-                  height: 16,
-                  width: 16,
-                }}
-              />
+              <Image source={Share} style={styles.iconImage} />
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.iconButton}>
-              <Image
-                source={Refresh}
-                style={{
-                  height: 16,
-                  width: 16,
-                }}
-              />
+              <Image source={Refresh} style={styles.iconImage} />
             </TouchableOpacity>
           </View>
         </View>
@@ -100,23 +78,20 @@ export function ChatScreen({ route, navigation }: Props) {
           onClick={() => {}}
         />
       </View>
-      <View style={{ flexDirection: "row", alignItems: "center", gap: 7 }}>
-        <View
-          style={{
-            height: 35,
-            width: 35,
-            backgroundColor: "#D9D9D9",
-            justifyContent: "center",
-            alignItems: "center",
-            borderRadius: 100,
-          }}
-        >
+      <View style={styles.inputRow}>
+        <View style={styles.attachmentButton}>
           <MaterialIcons name="attach-file" size={22} color={"#000000"} />
         </View>
         <SearchBar
-          placeholder="I would like to learn about..."
+          placeholder="Ask anything"
           value={query}
           onChangeText={setQuery}
+          primaryIcon={
+            <MaterialIcons name="graphic-eq" size={20} color="white" />
+          }
+          secondaryIcon={
+            <MaterialIcons name="videocam" size={20} color="white" />
+          }
         />
       </View>
     </AppBackground>
@@ -127,27 +102,8 @@ const styles = StyleSheet.create({
   content: {
     gap: 20,
   },
-  actionsRow: {
-    flexDirection: "row",
-    marginBottom: spacing.xl,
-    gap: spacing.sm,
-  },
   input: {
     alignSelf: "flex-end",
-  },
-  messagesContainer: {
-    backgroundColor: Colors.surface,
-    borderRadius: 22,
-    borderWidth: 1,
-    borderColor: Colors.outline,
-    padding: spacing.xl,
-  },
-  inputWrapper: {
-    width: "100%",
-  },
-  micWrapper: {
-    alignItems: "center",
-    justifyContent: "center",
   },
   title: {
     color: "#FFFFFF",
@@ -166,5 +122,23 @@ const styles = StyleSheet.create({
   footer: {
     flexDirection: "row",
     gap: 8,
+  },
+  iconImage: {
+    height: 16,
+    width: 16,
+  },
+  inputRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 7,
+    marginTop: 16,
+  },
+  attachmentButton: {
+    height: 35,
+    width: 35,
+    backgroundColor: "#D9D9D9",
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 100,
   },
 });

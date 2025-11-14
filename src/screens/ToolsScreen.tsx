@@ -2,11 +2,12 @@ import { useState } from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 
 import { AppBackground } from "@/components/AppBackground";
-import { ScreenHeader } from "@/components/ScreenHeader";
 import { SearchBar } from "@/components/SearchBar";
 import { SegmentedTabs } from "@/components/SegmentedTabs";
 import { ToolCard } from "@/components/ToolCard";
 import { Colors, spacing, typography } from "@/theme";
+import { MaterialIcons } from "@expo/vector-icons";
+import { SEARCH_BAR_PRESET } from "@/constants";
 
 const TOOL_CATEGORIES = ["Plan", "Learn", "Practise", "Revise", "Analyze"];
 
@@ -43,6 +44,10 @@ export function ToolsScreen() {
           placeholder="Search companions by name"
           value={search}
           onChangeText={setSearch}
+          primaryIcon={
+            <MaterialIcons name="search" size={20} color="#B7B7B7" />
+          }
+          preset={SEARCH_BAR_PRESET.SECONDARY}
         />
         <View style={styles.tabsContainer}>
           <SegmentedTabs

@@ -1,7 +1,6 @@
 import { MaterialIcons } from "@expo/vector-icons";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { LinearGradient } from "expo-linear-gradient";
-import { Image, Pressable, StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 import { AppBackground } from "@/components/AppBackground";
 import { SearchBar } from "@/components/SearchBar";
@@ -9,13 +8,13 @@ import { HomeStackParamList } from "@/navigation/types";
 import { Colors, spacing } from "@/theme";
 import { useState } from "react";
 import CompanionImage from "../../assets/images/companion.png";
+import Hamburger from "../../assets/images/Hamburger.png";
+import Universe from "../../assets/images/universe.png";
 
 const COMPANION = {
   name: "Mr Alex",
   avatar: CompanionImage,
 };
-
-const FEATURE_BADGE_GRADIENT: [string, string] = ["#451b66", "#f55f8d"];
 
 export function CompanionScreen({
   navigation,
@@ -26,51 +25,36 @@ export function CompanionScreen({
     <AppBackground variant="home">
       <View style={styles.container}>
         <View style={styles.headerRow}>
-          <View style={styles.headerColumn}>
-            <Pressable
-              style={styles.circleButton}
-              onPress={() => {
-                const rootNavigation = navigation.getParent()?.getParent();
-                if (rootNavigation) {
-                  rootNavigation.navigate("Library");
-                }
-              }}
-            >
-              <MaterialIcons
-                name="menu-book"
-                size={22}
-                color={Colors.textSecondary}
-              />
-            </Pressable>
-
-            <LinearGradient
-              colors={FEATURE_BADGE_GRADIENT}
-              start={{ x: 0, y: 0 }}
-              end={{ x: 1, y: 1 }}
-              style={styles.featureBadge}
+          <TouchableOpacity
+            style={styles.circleButton}
+            onPress={() => {
+              const rootNavigation = navigation.getParent()?.getParent();
+              if (rootNavigation) {
+                rootNavigation.navigate("Library");
+              }
+            }}
+          >
+            <MaterialIcons
+              name="menu-book"
+              size={22}
+              color={Colors.textSecondary}
             />
-          </View>
-
+          </TouchableOpacity>
           <View style={styles.chip}>
             <Text style={styles.chipText}>{COMPANION.name}</Text>
           </View>
+          <TouchableOpacity style={styles.circleButton}>
+            <Image source={Hamburger} style={styles.hamburgerImage} />
+          </TouchableOpacity>
+        </View>
+        <View style={styles.secondHeaderRow}>
+          <TouchableOpacity style={styles.universeButton}>
+            <Image source={Universe} style={styles.universeImage} />
+          </TouchableOpacity>
 
-          <View style={styles.headerColumn}>
-            <Pressable style={styles.circleButton}>
-              <MaterialIcons
-                name="menu"
-                size={22}
-                color={Colors.textSecondary}
-              />
-            </Pressable>
-            <Pressable style={styles.circleButton}>
-              <MaterialIcons
-                name="graphic-eq"
-                size={22}
-                color={Colors.textSecondary}
-              />
-            </Pressable>
-          </View>
+          <TouchableOpacity style={styles.circleButton}>
+            <MaterialIcons name="graphic-eq" size={22} color={"white"} />
+          </TouchableOpacity>
         </View>
 
         <View style={styles.heroSection}>
@@ -82,22 +66,13 @@ export function CompanionScreen({
           <Text style={styles.welcomeMessage}>
             Welcome, Sarthak! What would you like to learn today?
           </Text>
-          <View style={{ flexDirection: "row", alignItems: "center", gap: 7 }}>
+          <View style={styles.searchRow}>
             <SearchBar
               placeholder="I would like to learn about..."
               value={query}
               onChangeText={setQuery}
             />
-            <View
-              style={{
-                height: 35,
-                width: 35,
-                backgroundColor: "#D9D9D9",
-                justifyContent: "center",
-                alignItems: "center",
-                borderRadius: 100,
-              }}
-            >
+            <View style={styles.attachmentButton}>
               <MaterialIcons name="attach-file" size={22} color={"#000000"} />
             </View>
           </View>
@@ -111,17 +86,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  headerRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "flex-start",
-  },
-  headerColumn: {
-    gap: spacing.md,
-  },
   circleButton: {
-    width: 56,
-    height: 56,
+    width: 45,
+    height: 45,
     borderRadius: 28,
     borderWidth: 1,
     borderColor: "rgba(255, 255, 255, 0.18)",
@@ -129,18 +96,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "rgba(5, 18, 31, 0.45)",
   },
-  featureBadge: {
-    width: 56,
-    height: 56,
-    borderRadius: 28,
-    borderWidth: 2,
-    borderColor: "rgba(255, 255, 255, 0.25)",
-  },
   chip: {
-    minWidth: 120,
     alignSelf: "center",
     paddingVertical: 10,
-    paddingHorizontal: spacing.xl,
+    paddingHorizontal: 15,
     borderRadius: 22,
     borderWidth: 1,
     borderColor: "rgba(255, 255, 255, 0.22)",
@@ -149,8 +108,9 @@ const styles = StyleSheet.create({
   chipText: {
     textAlign: "center",
     color: Colors.textPrimary,
-    fontWeight: "600",
-    fontSize: 16,
+    fontWeight: "400",
+    fontSize: 14,
+    lineHeight: 18,
   },
   heroSection: {
     alignItems: "center",
@@ -183,30 +143,44 @@ const styles = StyleSheet.create({
     marginBottom: 13,
     lineHeight: 26,
   },
+  headerRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: 14,
+  },
+  secondHeaderRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: 14,
+    alignItems: "center",
+  },
+  hamburgerImage: {
+    height: 13,
+    width: 24,
+  },
+  universeButton: {
+    height: 48,
+    width: 48,
+    backgroundColor: "#122a29",
+    borderRadius: 26,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  universeImage: {
+    height: 48,
+    width: 48,
+  },
   searchRow: {
     flexDirection: "row",
     alignItems: "center",
-    gap: spacing.md,
-  },
-  searchField: {
-    flex: 1,
-    borderRadius: 22,
-    paddingVertical: 14,
-    paddingHorizontal: spacing.lg,
-    backgroundColor: "rgba(0, 0, 0, 0.35)",
-    borderWidth: 1,
-    borderColor: "rgba(255, 255, 255, 0.12)",
-  },
-  searchPlaceholder: {
-    color: Colors.textSecondary,
-    fontSize: 15,
+    gap: 7,
   },
   attachmentButton: {
-    width: 44,
-    height: 44,
-    borderRadius: 22,
-    backgroundColor: "rgba(217, 217, 217, 0.92)",
+    height: 35,
+    width: 35,
+    backgroundColor: "#D9D9D9",
     justifyContent: "center",
     alignItems: "center",
+    borderRadius: 100,
   },
 });

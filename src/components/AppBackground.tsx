@@ -1,8 +1,5 @@
-import { LinearGradient } from "expo-linear-gradient";
 import { ReactNode } from "react";
 import { ImageBackground, StyleSheet, View } from "react-native";
-
-import { Colors, Gradients } from "@/theme";
 
 const appBackgroundSource = require("../../assets/images/app-background.png");
 
@@ -15,8 +12,6 @@ export function AppBackground({
   children,
   variant = "default",
 }: AppBackgroundProps) {
-  const gradientColors = variant === "home" ? Gradients.home : Gradients.screen;
-
   return (
     <ImageBackground
       source={appBackgroundSource}

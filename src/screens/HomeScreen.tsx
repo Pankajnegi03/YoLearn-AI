@@ -17,6 +17,7 @@ import { CategoryChip } from "@/components/CategoryChip";
 import { SearchBar } from "@/components/SearchBar";
 import { HomeStackParamList } from "@/navigation/types";
 import { Colors, spacing } from "@/theme";
+import Hamburger from "../../assets/images/Hamburger.png";
 import Voice from "../../assets/images/voice-background.png";
 
 const SEARCH_RESULTS = [
@@ -96,7 +97,7 @@ export function HomeScreen() {
             <Text style={styles.voiceLabel}>Voice</Text>
           </View>
           <View style={styles.roundButton}>
-            <MaterialIcons name="menu" size={20} color={Colors.textPrimary} />
+            <Image source={Hamburger} style={styles.hamburgerImage} />
           </View>
         </View>
 
@@ -111,13 +112,7 @@ export function HomeScreen() {
               }
             }}
           >
-            <Image
-              source={Voice}
-              style={{
-                height: 250,
-                width: 250,
-              }}
-            />
+            <Image source={Voice} style={styles.voiceImage} />
           </Pressable>
           <Text style={styles.brandLabel}>Yo</Text>
         </View>
@@ -126,22 +121,13 @@ export function HomeScreen() {
           <Text style={styles.welcomeMessage}>
             Welcome, Sarthak! What would you like to learn today?
           </Text>
-          <View style={{ flexDirection: "row", alignItems: "center", gap: 7 }}>
+          <View style={styles.searchRow}>
             <SearchBar
               placeholder="I would like to learn about..."
               value={query}
               onChangeText={setQuery}
             />
-            <View
-              style={{
-                height: 35,
-                width: 35,
-                backgroundColor: "#D9D9D9",
-                justifyContent: "center",
-                alignItems: "center",
-                borderRadius: 100,
-              }}
-            >
+            <View style={styles.attachmentButton}>
               <MaterialIcons name="attach-file" size={22} color={"#000000"} />
             </View>
           </View>
@@ -163,7 +149,7 @@ export function HomeScreen() {
             keyExtractor={(item) => item.id.toString()}
             nestedScrollEnabled={true}
             showsVerticalScrollIndicator={true}
-            style={{ maxHeight: 152 }}
+            style={styles.suggestionsList}
             renderItem={({ item }) => (
               <View style={styles.suggestionRow}>
                 <MaterialIcons name="search" size={16} color={"#B7B7B7"} />
@@ -251,7 +237,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     paddingHorizontal: 12,
     paddingVertical: 6,
-    // marginBottom: spacing.xl,
   },
   suggestionRow: {
     flexDirection: "row",
@@ -265,11 +250,28 @@ const styles = StyleSheet.create({
     fontWeight: "400",
     lineHeight: 22,
   },
-  sectionLabel: {
-    color: Colors.textSecondary,
-    fontSize: 14,
-    textTransform: "uppercase",
-    letterSpacing: 1.2,
-    marginBottom: spacing.md,
+  hamburgerImage: {
+    height: 13,
+    width: 24,
+  },
+  voiceImage: {
+    height: 250,
+    width: 250,
+  },
+  searchRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 7,
+  },
+  attachmentButton: {
+    height: 35,
+    width: 35,
+    backgroundColor: "#D9D9D9",
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 100,
+  },
+  suggestionsList: {
+    maxHeight: 152,
   },
 });
